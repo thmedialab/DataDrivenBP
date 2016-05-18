@@ -4,7 +4,7 @@ This is the repository sharing research code of paper "Data-Driven Estimation of
 
 ## BP PPG Collector
 
-Building the app under directory `kiwi_bpppg_collector_studio` with Android Studio and running this Android app would record the user index file `users.idx` and record csv files with pattern `DATE-NAME.rcd` under the directory `BPrecord` inside the storage.
+Building the app under directory `kiwi_bpppg_collector` with Android Studio and running this Android app would record the user index file `users.idx` and record csv files with pattern `DATE-NAME.rcd` under the directory `BPrecord` inside the storage.
 
 ## Python scripts
 The Python scripts with name pattern  `BP*.py` are used to extract information from BP record `.rcd` files for futre Mathematica processing:
