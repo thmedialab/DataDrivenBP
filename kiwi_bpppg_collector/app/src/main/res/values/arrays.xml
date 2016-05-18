@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="gender">
+        <item>"男"</item>
+        <item>"女"</item>
+    </string-array>
+
+     
+    <string-array name="note_frequent">
+        <item >早餐前</item>
+        <item>早餐后</item>
+        <item>午餐前</item>
+        <item >午餐后</item>
+        <item >晚餐前</item>
+        <item>晚餐后</item>
+        <item>运动前</item>
+        <item>运动后</item>
+        <item>睡觉前</item>
+    </string-array>
+    
+</resources>

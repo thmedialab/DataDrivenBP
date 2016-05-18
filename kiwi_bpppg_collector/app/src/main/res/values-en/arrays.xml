@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="gender">
+        <item>"Male"</item>
+        <item>"Female"</item>
+    </string-array>
+
+     
+    <string-array name="note_frequent">
+        <item >before breakfast</item>
+        <item>after breakfast</item>
+        <item>before lunch</item>
+        <item >after lunch</item>
+        <item >before dinner</item>
+        <item>after dinner</item>
+        <item>before sports</item>
+        <item>after sports</item>
+        <item>before sleep</item>
+     </string-array>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="start_rec">Start\n Record</string>
+   <string name="bluetooth_rec">BT</string>
+   <string name="camera_rec">Cam</string>
+   <string name="heart_rate_empty">Heart Rate Empty!</string>
+   <string name="help">No Skin detected!</string>
+       <string name="name_empty">name is empty</string>
+       <string name="age_empty">age is empty</string>
+   <string name="second">s</string>
+         <string name="rec_time">record time</string>
+       <string name="bp_empty">blood pressure is empty</string>
+       <string name="finished">Finished!</string>
+
+   <string name="add_note">Add note</string>
+   <string name="app_name">BP PPG Collector</string>
+   <string name="blood_pressure_unit_mmhg">mmHg</string>
+   <string name="date_and_time">Date</string>
+   <string name="diastolic_blood_pressure">DBP</string>
+   <string name="heart_rate">PUL</string>
+   <string name="heart_rate_unit">bpm</string>
+   <string name="mobile_phone">Phone</string>
+   <string name="no">No</string>
+   <string name="note">Note</string>
+   <string name="profile_age">Age</string>
+   <string name="profile_gender">Gender</string>
+   <string name="profile_name">Name</string>
+   <string name="save">Save</string>
+    <string name="save_success">Save success</string>
+   <string name="symbol_more">&#8230;</string>
+   <string name="systolic_blood_pressure">SBP</string>
+   <string name="weather">Weather</string>
+   <string name="yes">Yes</string>
+   <string name="cd_history">Cardiovascular Diseases</string>
+</resources>
