@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process version="5.3.015">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="5.3.015" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <parameter key="parallelize_main_process" value="false"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="5.3.015" expanded="true" height="60" name="Retrieve oxiDiasSelected" width="90" x="179" y="255">
+        <parameter key="repository_entry" value="//Local Repository/data/BP/camSysFeatureSelected"/>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="5.3.015" expanded="true" height="94" name="Multiply" width="90" x="313" y="255"/>
+      <operator activated="true" class="optimize_parameters_quadratic" compatibility="5.3.015" expanded="true" height="130" name="Optimize Parameters (Quadratic)" width="90" x="514" y="120">
+        <list key="parameters">
+          <parameter key="SVM (7).C" value="[20;60;100;linear]"/>
+          <parameter key="SVM (7).epsilon" value="[9;20;10;linear]"/>
+          <parameter key="SVM (7).nu" value="[0.4;0.5;10;linear]"/>
+        </list>
+        <parameter key="if_exceeds_region" value="clip"/>
+        <parameter key="if_exceeds_range" value="fail"/>
+        <parameter key="parallelize_optimization_process" value="true"/>
+        <process expanded="true">
+          <operator activated="true" class="x_validation" compatibility="5.3.015" expanded="true" height="112" name="Validation (4)" width="90" x="313" y="210">
+            <parameter key="create_complete_model" value="false"/>
+            <parameter key="average_performances_only" value="true"/>
+            <parameter key="leave_one_out" value="false"/>
+            <parameter key="number_of_validations" value="10"/>
+            <parameter key="sampling_type" value="shuffled sampling"/>
+            <parameter key="use_local_random_seed" value="true"/>
+            <parameter key="local_random_seed" value="12"/>
+            <parameter key="parallelize_training" value="false"/>
+            <parameter key="parallelize_testing" value="false"/>
+            <process expanded="true">
+              <operator activated="false" class="relevance_vector_machine" compatibility="5.3.015" expanded="true" height="76" name="Relevance Vector Machine (4)" width="90" x="45" y="30">
+                <parameter key="rvm_type" value="Regression-RVM"/>
+                <parameter key="kernel_type" value="rbf"/>
+                <parameter key="kernel_lengthscale" value="3.0"/>
+                <parameter key="kernel_degree" value="2.0"/>
+                <parameter key="kernel_bias" value="1.0"/>
+                <parameter key="kernel_sigma1" value="1.0"/>
+                <parameter key="kernel_sigma2" value="0.0"/>
+                <parameter key="kernel_sigma3" value="2.0"/>
+                <parameter key="kernel_shift" value="1.0"/>
+                <parameter key="kernel_a" value="1.0"/>
+                <parameter key="kernel_b" value="0.0"/>
+                <parameter key="max_iteration" value="100"/>
+                <parameter key="min_delta_log_alpha" value="0.001"/>
+                <parameter key="alpha_max" value="1.0E12"/>
+                <parameter key="use_local_random_seed" value="false"/>
+                <parameter key="local_random_seed" value="1992"/>
+              </operator>
+              <operator activated="false" class="gaussian_process" compatibility="5.3.015" expanded="true" height="76" name="Gaussian Process (4)" width="90" x="180" y="30">
+                <parameter key="kernel_type" value="rbf"/>
+                <parameter key="kernel_lengthscale" value="6.0"/>
+                <parameter key="kernel_degree" value="2.0"/>
+                <parameter key="kernel_bias" value="1.0"/>
+                <parameter key="kernel_sigma1" value="1.0"/>
+                <parameter key="kernel_sigma2" value="0.0"/>
+                <parameter key="kernel_sigma3" value="2.0"/>
+                <parameter key="kernel_shift" value="1.0"/>
+                <parameter key="kernel_a" value="1.0"/>
+                <parameter key="kernel_b" value="0.0"/>
+                <parameter key="max_basis_vectors" value="200"/>
+                <parameter key="epsilon_tol" value="1.0E-7"/>
+                <parameter key="geometrical_tol" value="1.0E-7"/>
+              </operator>
+              <operator activated="false" class="neural_net" compatibility="5.3.015" expanded="true" height="76" name="Neural Net (6)" width="90" x="315" y="30">
+                <list key="hidden_layers"/>
+                <parameter key="training_cycles" value="5000"/>
+                <parameter key="learning_rate" value="0.05"/>
+                <parameter key="momentum" value="0.01189"/>
+                <parameter key="decay" value="false"/>
+                <parameter key="shuffle" value="true"/>
+                <parameter key="normalize" value="true"/>
+                <parameter key="error_epsilon" value="1.0E-8"/>
+                <parameter key="use_local_random_seed" value="false"/>
+                <parameter key="local_random_seed" value="1992"/>
+              </operator>
+              <operator activated="false" class="support_vector_machine" compatibility="5.3.015" expanded="true" height="112" name="SVM (6)" width="90" x="45" y="120">
+                <parameter key="kernel_type" value="dot"/>
+                <parameter key="kernel_gamma" value="1.0"/>
+                <parameter key="kernel_sigma1" value="1.0"/>
+                <parameter key="kernel_sigma2" value="0.0"/>
+                <parameter key="kernel_sigma3" value="2.0"/>
+                <parameter key="kernel_shift" value="1.0"/>
+                <parameter key="kernel_degree" value="2.0"/>
+                <parameter key="kernel_a" value="1.0"/>
+                <parameter key="kernel_b" value="0.0"/>
+                <parameter key="kernel_cache" value="200"/>
+                <parameter key="C" value="0.0"/>
+                <parameter key="convergence_epsilon" value="0.001"/>
+                <parameter key="max_iterations" value="100000"/>
+                <parameter key="scale" value="true"/>
+                <parameter key="calculate_weights" value="true"/>
+                <parameter key="return_optimization_performance" value="true"/>
+                <parameter key="L_pos" value="1.0"/>
+                <parameter key="L_neg" value="1.0"/>
+                <parameter key="epsilon" value="0.0"/>
+                <parameter key="epsilon_plus" value="0.0"/>
+                <parameter key="epsilon_minus" value="0.0"/>
+                <parameter key="balance_cost" value="false"/>
+                <parameter key="quadratic_loss_pos" value="false"/>
+                <parameter key="quadratic_loss_neg" value="false"/>
+                <parameter key="estimate_performance" value="false"/>
+              </operator>
+              <operator activated="false" class="neural_net" compatibility="5.3.015" expanded="true" height="76" name="Neural Net (7)" width="90" x="180" y="120">
+                <list key="hidden_layers">
+                  <parameter key="1" value="-1"/>
+                  <parameter key="2" value="-1"/>
+                </list>
+                <parameter key="training_cycles" value="500"/>
+                <parameter key="learning_rate" value="0.05"/>
+                <parameter key="momentum" value="0.011890000000000001"/>
+                <parameter key="decay" value="false"/>
+                <parameter key="shuffle" value="true"/>
+                <parameter key="normalize" value="true"/>
+                <parameter key="error_epsilon" value="1.0E-8"/>
+                <parameter key="use_local_random_seed" value="true"/>
+                <parameter key="local_random_seed" value="1992"/>
+              </operator>
+              <operator activated="false" class="k_nn" compatibility="5.3.015" expanded="true" height="76" name="k-NN (4)" width="90" x="315" y="120">
+                <parameter key="k" value="3"/>
+                <parameter key="weighted_vote" value="true"/>
+                <parameter key="measure_types" value="MixedMeasures"/>
+                <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+                <parameter key="nominal_measure" value="NominalDistance"/>
+                <parameter key="numerical_measure" value="EuclideanDistance"/>
+                <parameter key="divergence" value="GeneralizedIDivergence"/>
+                <parameter key="kernel_type" value="radial"/>
+                <parameter key="kernel_gamma" value="1.0"/>
+                <parameter key="kernel_sigma1" value="1.0"/>
+                <parameter key="kernel_sigma2" value="0.0"/>
+                <parameter key="kernel_sigma3" value="2.0"/>
+                <parameter key="kernel_degree" value="3.0"/>
+                <parameter key="kernel_shift" value="1.0"/>
+                <parameter key="kernel_a" value="1.0"/>
+                <parameter key="kernel_b" value="0.0"/>
+              </operator>
+              <operator activated="true" class="support_vector_machine_libsvm" compatibility="5.3.015" expanded="true" height="76" name="SVM (7)" width="90" x="174" y="30">
+                <parameter key="svm_type" value="nu-SVR"/>
+                <parameter key="kernel_type" value="rbf"/>
+                <parameter key="degree" value="3"/>
+                <parameter key="gamma" value="0.0"/>
+                <parameter key="coef0" value="0.0"/>
+                <parameter key="C" value="31.429639035494567"/>
+                <parameter key="nu" value="0.49388282075716305"/>
+                <parameter key="cache_size" value="80"/>
+                <parameter key="epsilon" value="11.37258734445709"/>
+                <parameter key="p" value="0.1"/>
+                <list key="class_weights"/>
+                <parameter key="shrinking" value="true"/>
+                <parameter key="calculate_confidences" value="false"/>
+                <parameter key="confidence_for_multiclass" value="true"/>
+              </operator>
+              <connect from_port="training" to_op="SVM (7)" to_port="training set"/>
+              <connect from_op="SVM (7)" from_port="model" to_port="model"/>
+              <portSpacing port="source_training" spacing="0"/>
+              <portSpacing port="sink_model" spacing="0"/>
+              <portSpacing port="sink_through 1" spacing="0"/>
+            </process>
+            <process expanded="true">
+              <operator activated="true" class="apply_model" compatibility="5.3.015" expanded="true" height="76" name="Apply Model (4)" width="90" x="45" y="30">
+                <list key="application_parameters"/>
+                <parameter key="create_view" value="false"/>
+              </operator>
+              <operator activated="true" class="performance_regression" compatibility="5.3.015" expanded="true" height="76" name="Performance (7)" width="90" x="242" y="30">
+                <parameter key="main_criterion" value="absolute_error"/>
+                <parameter key="root_mean_squared_error" value="true"/>
+                <parameter key="absolute_error" value="true"/>
+                <parameter key="relative_error" value="false"/>
+                <parameter key="relative_error_lenient" value="true"/>
+                <parameter key="relative_error_strict" value="true"/>
+                <parameter key="normalized_absolute_error" value="true"/>
+                <parameter key="root_relative_squared_error" value="true"/>
+                <parameter key="squared_error" value="true"/>
+                <parameter key="correlation" value="true"/>
+                <parameter key="squared_correlation" value="true"/>
+                <parameter key="prediction_average" value="true"/>
+                <parameter key="spearman_rho" value="true"/>
+                <parameter key="kendall_tau" value="true"/>
+                <parameter key="skip_undefined_labels" value="true"/>
+                <parameter key="use_example_weights" value="true"/>
+              </operator>
+              <operator activated="false" class="performance" compatibility="5.3.015" expanded="true" height="76" name="Performance (8)" width="90" x="315" y="30">
+                <parameter key="use_example_weights" value="true"/>
+              </operator>
+              <connect from_port="model" to_op="Apply Model (4)" to_port="model"/>
+              <connect from_port="test set" to_op="Apply Model (4)" to_port="unlabelled data"/>
+              <connect from_op="Apply Model (4)" from_port="labelled data" to_op="Performance (7)" to_port="labelled data"/>
+              <connect from_op="Performance (7)" from_port="performance" to_port="averagable 1"/>
+              <portSpacing port="source_model" spacing="0"/>
+              <portSpacing port="source_test set" spacing="0"/>
+              <portSpacing port="source_through 1" spacing="0"/>
+              <portSpacing port="sink_averagable 1" spacing="0"/>
+              <portSpacing port="sink_averagable 2" spacing="0"/>
+            </process>
+          </operator>
+          <connect from_port="input 1" to_op="Validation (4)" to_port="training"/>
+          <connect from_op="Validation (4)" from_port="model" to_port="result 1"/>
+          <connect from_op="Validation (4)" from_port="training" to_port="result 2"/>
+          <connect from_op="Validation (4)" from_port="averagable 1" to_port="performance"/>
+          <portSpacing port="source_input 1" spacing="0"/>
+          <portSpacing port="source_input 2" spacing="0"/>
+          <portSpacing port="sink_performance" spacing="0"/>
+          <portSpacing port="sink_result 1" spacing="0"/>
+          <portSpacing port="sink_result 2" spacing="0"/>
+          <portSpacing port="sink_result 3" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="5.3.015" expanded="true" height="94" name="Multiply (2)" width="90" x="648" y="210"/>
+      <operator activated="true" class="set_parameters" compatibility="5.3.015" expanded="true" height="94" name="Set Parameters" width="90" x="648" y="345">
+        <list key="name_map">
+          <parameter key="SVM (7)" value="SVM (17)"/>
+        </list>
+      </operator>
+      <operator activated="true" class="x_validation" compatibility="5.3.015" expanded="true" height="112" name="Validation (7)" width="90" x="715" y="480">
+        <parameter key="create_complete_model" value="false"/>
+        <parameter key="average_performances_only" value="true"/>
+        <parameter key="leave_one_out" value="false"/>
+        <parameter key="number_of_validations" value="10"/>
+        <parameter key="sampling_type" value="shuffled sampling"/>
+        <parameter key="use_local_random_seed" value="true"/>
+        <parameter key="local_random_seed" value="12"/>
+        <parameter key="parallelize_training" value="false"/>
+        <parameter key="parallelize_testing" value="false"/>
+        <process expanded="true">
+          <operator activated="false" class="relevance_vector_machine" compatibility="5.3.015" expanded="true" height="76" name="Relevance Vector Machine (7)" width="90" x="45" y="30">
+            <parameter key="rvm_type" value="Regression-RVM"/>
+            <parameter key="kernel_type" value="rbf"/>
+            <parameter key="kernel_lengthscale" value="3.0"/>
+            <parameter key="kernel_degree" value="2.0"/>
+            <parameter key="kernel_bias" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="max_iteration" value="100"/>
+            <parameter key="min_delta_log_alpha" value="0.001"/>
+            <parameter key="alpha_max" value="1.0E12"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+          </operator>
+          <operator activated="false" class="gaussian_process" compatibility="5.3.015" expanded="true" height="76" name="Gaussian Process (7)" width="90" x="180" y="30">
+            <parameter key="kernel_type" value="rbf"/>
+            <parameter key="kernel_lengthscale" value="6.0"/>
+            <parameter key="kernel_degree" value="2.0"/>
+            <parameter key="kernel_bias" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="max_basis_vectors" value="200"/>
+            <parameter key="epsilon_tol" value="1.0E-7"/>
+            <parameter key="geometrical_tol" value="1.0E-7"/>
+          </operator>
+          <operator activated="false" class="neural_net" compatibility="5.3.015" expanded="true" height="76" name="Neural Net (13)" width="90" x="315" y="30">
+            <list key="hidden_layers"/>
+            <parameter key="training_cycles" value="5000"/>
+            <parameter key="learning_rate" value="0.05"/>
+            <parameter key="momentum" value="0.01189"/>
+            <parameter key="decay" value="false"/>
+            <parameter key="shuffle" value="true"/>
+            <parameter key="normalize" value="true"/>
+            <parameter key="error_epsilon" value="1.0E-8"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+          </operator>
+          <operator activated="false" class="support_vector_machine" compatibility="5.3.015" expanded="true" height="112" name="SVM (16)" width="90" x="45" y="120">
+            <parameter key="kernel_type" value="dot"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_degree" value="2.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="kernel_cache" value="200"/>
+            <parameter key="C" value="0.0"/>
+            <parameter key="convergence_epsilon" value="0.001"/>
+            <parameter key="max_iterations" value="100000"/>
+            <parameter key="scale" value="true"/>
+            <parameter key="calculate_weights" value="true"/>
+            <parameter key="return_optimization_performance" value="true"/>
+            <parameter key="L_pos" value="1.0"/>
+            <parameter key="L_neg" value="1.0"/>
+            <parameter key="epsilon" value="0.0"/>
+            <parameter key="epsilon_plus" value="0.0"/>
+            <parameter key="epsilon_minus" value="0.0"/>
+            <parameter key="balance_cost" value="false"/>
+            <parameter key="quadratic_loss_pos" value="false"/>
+            <parameter key="quadratic_loss_neg" value="false"/>
+            <parameter key="estimate_performance" value="false"/>
+          </operator>
+          <operator activated="false" class="neural_net" compatibility="5.3.015" expanded="true" height="76" name="Neural Net (14)" width="90" x="180" y="120">
+            <list key="hidden_layers">
+              <parameter key="1" value="-1"/>
+              <parameter key="2" value="-1"/>
+            </list>
+            <parameter key="training_cycles" value="500"/>
+            <parameter key="learning_rate" value="0.05"/>
+            <parameter key="momentum" value="0.011890000000000001"/>
+            <parameter key="decay" value="false"/>
+            <parameter key="shuffle" value="true"/>
+            <parameter key="normalize" value="true"/>
+            <parameter key="error_epsilon" value="1.0E-8"/>
+            <parameter key="use_local_random_seed" value="true"/>
+            <parameter key="local_random_seed" value="1992"/>
+          </operator>
+          <operator activated="false" class="k_nn" compatibility="5.3.015" expanded="true" height="76" name="k-NN (7)" width="90" x="315" y="120">
+            <parameter key="k" value="3"/>
+            <parameter key="weighted_vote" value="true"/>
+            <parameter key="measure_types" value="MixedMeasures"/>
+            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+            <parameter key="nominal_measure" value="NominalDistance"/>
+            <parameter key="numerical_measure" value="EuclideanDistance"/>
+            <parameter key="divergence" value="GeneralizedIDivergence"/>
+            <parameter key="kernel_type" value="radial"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_degree" value="3.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+          </operator>
+          <operator activated="true" class="support_vector_machine_libsvm" compatibility="5.3.015" expanded="true" height="76" name="SVM (17)" width="90" x="174" y="30">
+            <parameter key="svm_type" value="nu-SVR"/>
+            <parameter key="kernel_type" value="rbf"/>
+            <parameter key="degree" value="3"/>
+            <parameter key="gamma" value="0.0"/>
+            <parameter key="coef0" value="0.0"/>
+            <parameter key="C" value="31.6"/>
+            <parameter key="nu" value="0.49"/>
+            <parameter key="cache_size" value="80"/>
+            <parameter key="epsilon" value="12.3"/>
+            <parameter key="p" value="0.1"/>
+            <list key="class_weights"/>
+            <parameter key="shrinking" value="true"/>
+            <parameter key="calculate_confidences" value="false"/>
+            <parameter key="confidence_for_multiclass" value="true"/>
+          </operator>
+          <connect from_port="training" to_op="SVM (17)" to_port="training set"/>
+          <connect from_op="SVM (17)" from_port="model" to_port="model"/>
+          <portSpacing port="source_training" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_through 1" spacing="0"/>
+        </process>
+        <process expanded="true">
+          <operator activated="true" class="apply_model" compatibility="5.3.015" expanded="true" height="76" name="Apply Model (9)" width="90" x="45" y="30">
+            <list key="application_parameters"/>
+            <parameter key="create_view" value="false"/>
+          </operator>
+          <operator activated="true" class="performance_regression" compatibility="5.3.015" expanded="true" height="76" name="Performance (9)" width="90" x="242" y="30">
+            <parameter key="main_criterion" value="root_mean_squared_error"/>
+            <parameter key="root_mean_squared_error" value="true"/>
+            <parameter key="absolute_error" value="true"/>
+            <parameter key="relative_error" value="true"/>
+            <parameter key="relative_error_lenient" value="true"/>
+            <parameter key="relative_error_strict" value="true"/>
+            <parameter key="normalized_absolute_error" value="true"/>
+            <parameter key="root_relative_squared_error" value="true"/>
+            <parameter key="squared_error" value="true"/>
+            <parameter key="correlation" value="true"/>
+            <parameter key="squared_correlation" value="true"/>
+            <parameter key="prediction_average" value="true"/>
+            <parameter key="spearman_rho" value="true"/>
+            <parameter key="kendall_tau" value="true"/>
+            <parameter key="skip_undefined_labels" value="true"/>
+            <parameter key="use_example_weights" value="true"/>
+          </operator>
+          <operator activated="false" class="performance" compatibility="5.3.015" expanded="true" height="76" name="Performance (10)" width="90" x="315" y="30">
+            <parameter key="use_example_weights" value="true"/>
+          </operator>
+          <connect from_port="model" to_op="Apply Model (9)" to_port="model"/>
+          <connect from_port="test set" to_op="Apply Model (9)" to_port="unlabelled data"/>
+          <connect from_op="Apply Model (9)" from_port="labelled data" to_op="Performance (9)" to_port="labelled data"/>
+          <connect from_op="Performance (9)" from_port="performance" to_port="averagable 1"/>
+          <portSpacing port="source_model" spacing="0"/>
+          <portSpacing port="source_test set" spacing="0"/>
+          <portSpacing port="source_through 1" spacing="0"/>
+          <portSpacing port="sink_averagable 1" spacing="0"/>
+          <portSpacing port="sink_averagable 2" spacing="0"/>
+        </process>
+      </operator>
+      <connect from_op="Retrieve oxiDiasSelected" from_port="output" to_op="Multiply" to_port="input"/>
+      <connect from_op="Multiply" from_port="output 1" to_op="Optimize Parameters (Quadratic)" to_port="input 1"/>
+      <connect from_op="Multiply" from_port="output 2" to_op="Set Parameters" to_port="through 1"/>
+      <connect from_op="Optimize Parameters (Quadratic)" from_port="performance" to_port="result 2"/>
+      <connect from_op="Optimize Parameters (Quadratic)" from_port="parameter" to_op="Multiply (2)" to_port="input"/>
+      <connect from_op="Optimize Parameters (Quadratic)" from_port="result 1" to_port="result 3"/>
+      <connect from_op="Optimize Parameters (Quadratic)" from_port="result 2" to_port="result 4"/>
+      <connect from_op="Multiply (2)" from_port="output 1" to_port="result 1"/>
+      <connect from_op="Multiply (2)" from_port="output 2" to_op="Set Parameters" to_port="parameter set"/>
+      <connect from_op="Set Parameters" from_port="through 1" to_op="Validation (7)" to_port="training"/>
+      <connect from_op="Validation (7)" from_port="averagable 1" to_port="result 5"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
+    </process>
+  </operator>
+</process>
